@@ -93,4 +93,4 @@ const createOverlayMenu = () => {
   document.body.appendChild(overlay);
 };
 
-// createOverlayMenu();
+createOverlayMenu();
