@@ -29,11 +29,11 @@ const createOverlayMenu = () => {
   });
 
   // Button Factory
-  const createBtn = (text) => {
-    const btn = document.createElement('button');
-    btn.innerText = text;
+  const createExitBtn = (text) => {
+    const ExitBtn = document.createElement('button');
+    ExitBtn.innerText = text;
     
-    Object.assign(btn.style, {
+    Object.assign(ExitBtn.style, {
       display: 'block',
       width: '100%',
       margin: '10px 0',
@@ -47,19 +47,41 @@ const createOverlayMenu = () => {
       fontSize: '16px'
     });
 
-    btn.onclick = () => {
-      console.log('Action triggered:', text);
-      if (text !== 'Close Menu') alert('You clicked: ' + text);
+    ExitBtn.onclick = () => {
       overlay.remove();
     };
     
     return btn;
   };
 
+
+  const createDesyncBtn = (text) => {
+    const desyncBtn = document.createElement('button');
+    desyncBtn.innerText = text;
+    
+    Object.assign(desyncBtn.style, {
+      display: 'block',
+      width: '100%',
+      margin: '10px 0',
+      padding: '10px',
+      border: 'none',
+      borderRadius: '8px',
+      backgroundColor: 'white',
+      color: '#FF8C00',
+      fontWeight: 'bold',
+      cursor: 'pointer',
+      fontSize: '16px'
+    });
+
+    desyncBtn.onclick = () => {
+      console.log('Lesson Desync activated. Move freely between slides')
+    };
+    
+    return desyncBtn;
+  };
   // Build Menu
   popup.appendChild(createBtn('Unpause Activity'));
-  popup.appendChild(createBtn('Desync Activity'));
-  popup.appendChild(createBtn('
+  popup.appendChild(createDesyncBtn('Desync Activity'));
   popup.appendChild(createBtn('Close Menu'));
 
   // Close on backdrop click
