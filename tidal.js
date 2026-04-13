@@ -19,7 +19,7 @@ const createOverlayMenu = () => {
   });
 
   // TIDAL Header
-  header.innerText = 'TIDAL';
+  header.innerText = '🌊TIDAL🌊';
   Object.assign(header.style, {
     margin: '0 0 30px 0', color: '#FF8C00', fontSize: '32px',
     letterSpacing: '6px', fontWeight: '900'
@@ -46,12 +46,12 @@ const createOverlayMenu = () => {
     return btn;
   };
 
-  // 1. Desync Button (Now uses alert)
+  // 1. Desync Button
   popup.appendChild(createMenuButton('Desync Button', true, () => {
     alert('Activity Desynced');
   }));
 
-  // 2. Unpause Button (Now uses alert)
+  // 2. Unpause Button
   popup.appendChild(createMenuButton('Unpause Button', true, () => {
     alert('Activity Unpaused');
   }));
