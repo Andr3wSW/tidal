@@ -83,7 +83,7 @@
             document.querySelectorAll('[class*="teacher-sync"],[class*="sync-overlay"],[id*="sync"]').forEach(el => el.remove());
             document.querySelectorAll('[disabled]').forEach(el => el.removeAttribute('disabled'));
             document.querySelectorAll('[class*="nav-button"]').forEach(btn => btn.style.pointerEvents = 'auto');
-            alert('Desynced: Slide control restored.');
+            alert('Desynced Activity');
         }));
 
         popup.appendChild(createMenuButton('Unpause Button', true, () => {
@@ -94,7 +94,7 @@
                 });
             });
             document.querySelectorAll('[disabled]').forEach(el => el.removeAttribute('disabled'));
-            alert('Attempted to force unpause');
+            alert('Unpaused Activity');
         }));
 
         popup.appendChild(createMenuButton('Exit', false, () => overlay.remove()));
