@@ -1,8 +1,8 @@
-
 (function() {
-    const validDomains = ['://amplify.com', '://amplify.com'];
-    if (!validDomains.includes(window.location.hostname)) {
-        alert('This bookmarklet only works on Amplify.');
+    const validDomain = 'amplify.com';
+
+    if (!window.location.hostname.endsWith(validDomain)) {
+        alert('This script only works on Amplify.');
         return;
     }
 
@@ -10,6 +10,7 @@
         const overlay = document.createElement('div');
         const popup = document.createElement('div');
         const header = document.createElement('h1');
+        const waveBtn = document.createElement('div');
 
         Object.assign(overlay.style, {
             position: 'fixed',
@@ -23,7 +24,10 @@
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontFamily: 'sans-serif'
+            fontFamily: 'sans-serif',
+            transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+            opacity: '1',
+            visibility: 'visible'
         });
 
         Object.assign(popup.style, {
@@ -33,7 +37,29 @@
             borderRadius: '24px',
             boxShadow: '0 20px 50px rgba(0,0,0,0.5)',
             textAlign: 'center',
-            width: '300px'
+            width: '300px',
+            transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+            transform: 'scale(1)'
+        });
+
+        waveBtn.innerText = '🌊';
+        Object.assign(waveBtn.style, {
+            position: 'fixed',
+            bottom: '20px',
+            right: '20px',
+            width: '60px',
+            height: '60px',
+            backgroundColor: '#FF8C00',
+            borderRadius: '50%',
+            display: 'none',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '30px',
+            cursor: 'pointer',
+            boxShadow: '0 4px 15px rgba(0,0,0,0.3)',
+            zIndex: '10000',
+            transition: 'all 0.3s ease',
+            transform: 'scale(0)'
         });
 
         header.innerText = '🌊TIDAL🌊';
@@ -46,6 +72,28 @@
         });
 
         popup.appendChild(header);
+
+        const minimize = () => {
+            overlay.style.opacity = '0';
+            overlay.style.visibility = 'hidden';
+            popup.style.transform = 'scale(0.8)';
+            setTimeout(() => {
+                waveBtn.style.display = 'flex';
+                setTimeout(() => {
+                    waveBtn.style.transform = 'scale(1)';
+                }, 10);
+            }, 400);
+        };
+
+        const maximize = () => {
+            waveBtn.style.transform = 'scale(0)';
+            setTimeout(() => {
+                waveBtn.style.display = 'none';
+                overlay.style.visibility = 'visible';
+                overlay.style.opacity = '1';
+                popup.style.transform = 'scale(1)';
+            }, 300);
+        };
 
         const createMenuButton = (text, isPrimary, onClickAction) => {
             const btn = document.createElement('button');
@@ -83,7 +131,7 @@
             document.querySelectorAll('[class*="teacher-sync"],[class*="sync-overlay"],[id*="sync"]').forEach(el => el.remove());
             document.querySelectorAll('[disabled]').forEach(el => el.removeAttribute('disabled'));
             document.querySelectorAll('[class*="nav-button"]').forEach(btn => btn.style.pointerEvents = 'auto');
-            alert('Desynced Activity');
+            alert('Desynced');
         }));
 
         popup.appendChild(createMenuButton('Unpause Button', true, () => {
@@ -94,17 +142,23 @@
                 });
             });
             document.querySelectorAll('[disabled]').forEach(el => el.removeAttribute('disabled'));
-            alert('Unpaused Activity');
+            alert('Unpaused');
         }));
 
-        popup.appendChild(createMenuButton('Exit', false, () => overlay.remove()));
+        popup.appendChild(createMenuButton('Exit', false, () => {
+            overlay.remove();
+            waveBtn.remove();
+        }));
 
         overlay.onclick = (e) => {
-            if (e.target === overlay) overlay.remove();
+            if (e.target === overlay) minimize();
         };
+
+        waveBtn.onclick = maximize;
 
         overlay.appendChild(popup);
         document.body.appendChild(overlay);
+        document.body.appendChild(waveBtn);
     };
 
     createOverlayMenu();
