@@ -1,1 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIDAL | Amplify Utility</title>
+    <style>
+        :root {
+            --primary: #FF8C00;
+            --bg: #0f0f0f;
+            --card: #1a1a1a;
+            --text: #ffffff;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 40px;
+            background: var(--card);
+            border: 1px solid #333;
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            max-width: 400px;
+            z-index: 2;
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 3rem;
+            letter-spacing: 8px;
+            font-weight: 900;
+            margin: 0 0 10px 0;
+        }
+
+        p {
+            color: #bbb;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        /* The Bookmarklet Button */
+        .bookmarklet {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 140, 0, 0.3);
+            cursor: move; /* Indicates it can be dragged */
+        }
+
+        .bookmarklet:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 140, 0, 0.5);
+            opacity: 0.9;
+        }
+
+        .instructions {
+            margin-top: 25px;
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        /* Decorative background waves */
+        .wave-bg {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(transparent, var(--primary));
+            opacity: 0.1;
+            filter: blur(50px);
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>🌊TIDAL🌊</h1>
+        <p>Unlock your workflow on Amplify. Desync, unpause, and take control.</p>
+        
+        <!-- Drag this to bookmarks bar -->
+        <a class="bookmarklet" href="javascript:(function(){const validDomain='amplify.com';if(!window.location.hostname.endsWith(validDomain)){alert('This bookmarklet only works on Amplify.');return;}const createOverlayMenu=()=>{const overlay=document.createElement('div');const popup=document.createElement('div');const header=document.createElement('h1');const waveBtn=document.createElement('div');Object.assign(overlay.style,{position:'fixed',top:'0',left:'0',width:'100%',height:'100%',backgroundColor:'rgba(0,0,0,0.8)',backdropFilter:'blur(8px)',zIndex:'9999',display:'flex',alignItems:'center',justifyContent:'center',fontFamily:'sans-serif',transition:'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)'});Object.assign(popup.style,{backgroundColor:'#1a1a1a',border:'1px solid #333',padding:'40px 30px',borderRadius:'24px',boxShadow:'0 20px 50px rgba(0,0,0,0.5)',textAlign:'center',width:'300px',transition:'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)'});waveBtn.innerText='🌊';Object.assign(waveBtn.style,{position:'fixed',bottom:'20px',right:'20px',width:'60px',height:'60px',backgroundColor:'#FF8C00',borderRadius:'50%',display:'none',alignItems:'center',justifyContent:'center',fontSize:'30px',cursor:'pointer',boxShadow:'0 4px 15px rgba(0,0,0,0.3)',zIndex:'10000',transition:'all 0.3s ease'});header.innerText='🌊TIDAL🌊';Object.assign(header.style,{margin:'0 0 30px 0',color:'#FF8C00',fontSize:'32px',letterSpacing:'6px',fontWeight:'900'});popup.appendChild(header);const minimize=()=>{overlay.style.opacity='0';overlay.style.pointerEvents='none';popup.style.transform='scale(0.8)';setTimeout(()=>{waveBtn.style.display='flex';waveBtn.style.transform='scale(1)';},200);};const maximize=()=>{waveBtn.style.transform='scale(0)';setTimeout(()=>{waveBtn.style.display='none';overlay.style.opacity='1';overlay.style.pointerEvents='auto';popup.style.transform='scale(1)';},200);};const createMenuButton=(text,isPrimary,onClickAction)=>{const btn=document.createElement('button');btn.innerText=text;Object.assign(btn.style,{display:'block',width:'100%',margin:'12px 0',padding:'14px',border:'none',borderRadius:'12px',fontWeight:'bold',cursor:'pointer',fontSize:'13px',transition:'all 0.2s ease',textTransform:'uppercase',letterSpacing:'1px',backgroundColor:isPrimary?'#FF8C00':'#333',color:isPrimary?'white':'#bbb'});btn.onmouseover=()=>{(btn.style.opacity='0.8');(btn.style.transform='scale(1.02)');};btn.onmouseout=()=>{(btn.style.opacity='1');(btn.style.transform='scale(1)');};btn.onclick=onClickAction;return btn;};popup.appendChild(createMenuButton('Desync Button',true,()=>{document.querySelectorAll('[class*=%22teacher-sync%22],[class*=%22sync-overlay%22],[id*=%22sync%22]').forEach(el=>el.remove());document.querySelectorAll('[disabled]').forEach(el=>el.removeAttribute('disabled'));document.querySelectorAll('[class*=%22nav-button%22]').forEach(btn=>btn.style.pointerEvents='auto');alert('Desynced');}));popup.appendChild(createMenuButton('Unpause Button',true,()=>{const selectors=['[class*=%22pause%22]','[class*=%22overlay%22]','[id*=%22pause%22]','div[style*=%22fixed%22]'];selectors.forEach(sel=>{document.querySelectorAll(sel).forEach(el=>{if(el!==overlay&&!overlay.contains(el))el.remove();});});document.querySelectorAll('[disabled]').forEach(el=>el.removeAttribute('disabled'));alert('Unpaused');}));popup.appendChild(createMenuButton('Exit',false,()=>{overlay.remove();waveBtn.remove();}));overlay.onclick=(e)=>{if(e.target===overlay)minimize();};waveBtn.onclick=maximize;overlay.appendChild(popup);document.body.appendChild(overlay);document.body.appendChild(waveBtn);};createOverlayMenu();})();">
+            Drag to Bookmarks
+        </a>
+
+        <div class="instructions">
+            Drag the button above to your bookmarks bar.<br>
+            Open <strong>Amplify</strong> and click the bookmark to launch.
+        </div>
+    </div>
+
+    <div class="wave-bg"></div>
+
+</body>
+</html>
 
